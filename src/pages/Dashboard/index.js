@@ -11,6 +11,7 @@ import {
   unwatchColumns,
   watchTasks,
   unwatchTasks,
+  addColumn,
   updateColumn,
   updateTask
 } from "../../firebase/dashboard";
@@ -56,7 +57,12 @@ export default class Dashboard extends Component {
   getDashboardData = data => this.setState(data);
 
   addNewCol = name => {
-    addColumn(name);
+    const lastCol = this.state.columns[this.state.columns.length - 1];
+    const column = {
+      name,
+      order: lastCol ? lastCol.order * 2 : 2048
+    };
+    addColumn(column);
   };
 
   onDragEnd = result => {
@@ -103,7 +109,7 @@ export default class Dashboard extends Component {
     const isSameCol = destination.droppableId === source.droppableId;
 
     if (destination.index === 0) {
-      return destinationItem.order / 2;
+      return destinationItem ? destinationItem.order / 2 : 2048;
     }
 
     if (isSameCol && destination.index >= destinationTasks.length - 1) {

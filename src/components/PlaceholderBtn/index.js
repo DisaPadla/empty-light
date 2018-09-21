@@ -39,8 +39,9 @@ export class PlaceholderBtn extends React.Component {
 
   submit = () => {
     if (this.props.onAdd) {
-      this.props.onAdd();
+      this.props.onAdd(this.inputRef.value);
     }
+    this.onToggle();
   };
 
   render() {
@@ -51,7 +52,7 @@ export class PlaceholderBtn extends React.Component {
             placeholder={this.props.placeholder}
             innerRef={node => (this.inputRef = node)}
           />
-          <Button onClick={this.onToggle}>Add</Button>
+          <Button onClick={this.submit}>Add</Button>
         </InputWrap>
       );
     }

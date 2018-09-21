@@ -17,7 +17,7 @@ export const updateColumn = column =>
 
 export const addColumn = column => {
   const newColumnRef = columnsRef.push();
-  const key = newColumnRef.key();
+  const key = newColumnRef.key;
   newColumnRef.set({ ...column, id: key });
 };
 
