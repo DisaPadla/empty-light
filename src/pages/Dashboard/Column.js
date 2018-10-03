@@ -19,9 +19,11 @@ const Wrap = styled.div`
   padding-top: ${props => props.theme.padding};
 `;
 
-const Bla = styled.div``;
+export default class Column extends Component {
+  onHandleAddTask = name => {
+    this.props.addNewTask(name, this.props.section.id);
+  };
 
-class Column extends Component {
   render() {
     const CardStyl = this.props.loading ? PendingCard : Card;
     return (
@@ -30,47 +32,52 @@ class Column extends Component {
         index={this.props.index}
       >
         {provided => (
-          <Bla
+          <div
             {...provided.draggableProps}
-            innerRef={provided.innerRef}
+            ref={provided.innerRef}
             {...provided.dragHandleProps}
           >
-            <Title>{this.props.section.title}</Title>
             <Droppable droppableId={this.props.section.id}>
-              {provided => (
-                <Wrap {...provided.droppableProps} innerRef={provided.innerRef}>
-                  {this.props.tasks.map((item, index) => (
-                    <Draggable
-                      draggableId={item.id}
-                      index={index}
-                      key={item.id}
-                    >
-                      {provided => (
-                        <CardStyl
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          innerRef={provided.innerRef}
-                        >
-                          {index} {item.id}
-                        </CardStyl>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                  <PlaceholderBtn
-                    text="+ Add new task"
-                    placeholder="...Add task title"
-                    onAdd={this.addNewCol}
-                  />
-                </Wrap>
-              )}
+              {provided => {
+                return (
+                  <Wrap
+                    {...provided.droppableProps}
+                    innerRef={provided.innerRef}
+                  >
+                    <Title>{this.props.section.name}</Title>
+                    {this.props.tasks.map((item, index) => (
+                      <Draggable
+                        draggableId={item.id}
+                        index={index}
+                        key={item.id}
+                      >
+                        {provided => {
+                          return (
+                            <CardStyl
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              innerRef={provided.innerRef}
+                              onClick={this.props.showCardModal}
+                            >
+                              {index} {item.name}
+                            </CardStyl>
+                          );
+                        }}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                    <PlaceholderBtn
+                      text="+ Add new task"
+                      placeholder="...Add task title"
+                      onAdd={this.onHandleAddTask}
+                    />
+                  </Wrap>
+                );
+              }}
             </Droppable>
-            {provided.placeholder}
-          </Bla>
+          </div>
         )}
       </DraggableStyl>
     );
   }
 }
-
-export default Column;

@@ -4,12 +4,7 @@ import {
   addColumn,
   unwatchColumns
 } from "./columns";
-import {
-  watchTasks,
-  updateTask,
-  updateMultipleTasks,
-  unwatchTasks
-} from "./tasks";
+import { watchTasks, updateTask, addTask, unwatchTasks } from "./tasks";
 
 export {
   watchColumns,
@@ -18,6 +13,6 @@ export {
   unwatchColumns,
   watchTasks,
   updateTask,
-  updateMultipleTasks,
+  addTask,
   unwatchTasks
 };

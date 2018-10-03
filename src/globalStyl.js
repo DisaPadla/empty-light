@@ -39,4 +39,9 @@ export default injectGlobal`
     line-height: 1.6;
     font-size: 18px;
   }
+
+  #modal-root {
+    position: relative;
+    z-index: 999;
+  }
 `;

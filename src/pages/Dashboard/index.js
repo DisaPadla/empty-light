@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import Column from "./Column";
-import { NewCol } from "./NewCol";
-import { Grid, PlaceholderBtn } from "../../components";
+import { Grid, PlaceholderBtn, Modal } from "../../components";
+import { Card } from "./Card";
 
 import {
   watchColumns,
@@ -13,30 +13,10 @@ import {
   unwatchTasks,
   addColumn,
   updateColumn,
-  updateTask
+  updateTask,
+  addTask
 } from "../../firebase/dashboard";
-
-const loadingMockData = {
-  tasks: {
-    "task-1": { id: "task-1", column: "column-1", order: 1024 },
-    "task-2": { id: "task-2", column: "column-1", order: 2048 },
-    "task-3": { id: "task-3", column: "column-2", order: 4096 },
-    "task-4": { id: "task-4", column: "column-2", order: 8192 },
-    "task-5": { id: "task-5", column: "column-2", order: 16384 }
-  },
-  columns: {
-    "column-1": {
-      id: "column-1",
-      order: 1024,
-      name: "column-1"
-    },
-    "column-2": {
-      id: "column-2",
-      order: 2048,
-      name: "column-2"
-    }
-  }
-};
+import { calculateOrder } from "./utils/dndOrder";
 
 export default class Dashboard extends Component {
   state = {
@@ -65,6 +45,19 @@ export default class Dashboard extends Component {
     addColumn(column);
   };
 
+  addNewTask = (name, columnId) => {
+    const destinationTasks = this.state.tasks.filter(
+      task => task.column === columnId
+    );
+    const lastExistTask = destinationTasks[destinationTasks.length - 1];
+    const task = {
+      name,
+      column: columnId,
+      order: lastExistTask ? lastExistTask.order * 2 : 2048
+    };
+    addTask(task);
+  };
+
   onDragEnd = result => {
     const { source, destination, draggableId, type } = result;
 
@@ -83,59 +76,25 @@ export default class Dashboard extends Component {
       const column = this.state.columns.find(col => col.id === draggableId);
       updateColumn({
         ...column,
-        order:
-          destination.index > source.index
-            ? this.state.columns[destination.index].order * 2
-            : this.state.columns[destination.index].order / 2
+        order: calculateOrder(result, this.state.columns)
       });
     } else {
       const sourceItem = this.state.tasks.find(task => task.id === draggableId);
+      const { tasks } = this.state;
+      const destinationTasks = tasks.filter(
+        task => task.column === destination.droppableId
+      );
       updateTask({
         ...sourceItem,
-        order: this.getNewOrder(result),
+        order: calculateOrder(result, destinationTasks),
         column: destination.droppableId
       });
     }
   };
 
-  getNewOrder = ({ destination, source }) => {
-    const { tasks } = this.state;
-    const destinationTasks = tasks.filter(
-      task => task.column === destination.droppableId
-    );
-    const destinationItem =
-      destinationTasks[destination.index] ||
-      destinationTasks[destination.index - 1];
-    const isSameCol = destination.droppableId === source.droppableId;
+  showCardModal = () => this.setState({ openCardModal: true });
 
-    if (destination.index === 0) {
-      return destinationItem ? destinationItem.order / 2 : 2048;
-    }
-
-    if (isSameCol && destination.index >= destinationTasks.length - 1) {
-      return destinationItem.order * 2;
-    }
-
-    if (!isSameCol && destination.index === destinationTasks.length) {
-      return destinationItem.order * 2;
-    }
-
-    if (isSameCol) {
-      const prevDestinationItem = destinationTasks[destination.index - 1];
-      const nextDestinationItem = destinationTasks[destination.index + 1];
-      return destination.index > source.index
-        ? (nextDestinationItem.order - destinationItem.order) / 2 +
-            destinationItem.order
-        : (destinationItem.order - prevDestinationItem.order) / 2 +
-            prevDestinationItem.order;
-    }
-
-    const prevDestinationItem = destinationTasks[destination.index - 1];
-    return (
-      (destinationItem.order - prevDestinationItem.order) / 2 +
-      prevDestinationItem.order
-    );
-  };
+  hideCardModal = () => this.setState({ openCardModal: false });
 
   render() {
     return (
@@ -157,10 +116,11 @@ export default class Dashboard extends Component {
                     key={column.id}
                     tasks={tasks}
                     index={index}
+                    addNewTask={this.addNewTask}
+                    showCardModal={this.showCardModal}
                   />
                 );
               })}
-              {provided.placeholder}
               <PlaceholderBtn
                 text="+ Add column"
                 placeholder="...Add column title"
@@ -169,6 +129,11 @@ export default class Dashboard extends Component {
             </Grid>
           )}
         </Droppable>
+        {this.state.openCardModal && (
+          <Modal onClose={this.hideCardModal}>
+            <Card />
+          </Modal>
+        )}
       </DragDropContext>
     );
   }
