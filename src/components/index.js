@@ -1,5 +1,5 @@
 export { Button } from "./Button";
-export { Card } from "./Card";
+export { Card, PendingCard } from "./Card";
 export { Container } from "./Container";
 export { Grid } from "./Grid";
 export { Input } from "./Input";

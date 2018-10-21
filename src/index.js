@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Board from "./pages/Dashboard";
-import { Button } from "./components/Button";
+import Auth from "./pages/Auth";
 import { Container } from "./components/Container";
 import { theme } from "./theme";
 import "./globalStyl";
@@ -21,8 +22,12 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={this.state.theme}>
         <Container>
-          {/* <Button onClick={this.onChangeTheme}>Change theme</Button> */}
-          <Board />
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Board} />
+              <Route path="/auth" component={Auth} />
+            </Switch>
+          </Router>
         </Container>
       </ThemeProvider>
     );
