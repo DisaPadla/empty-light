@@ -10,3 +10,4 @@ const databaseRef = firebase.database().ref();
 
 export const columnsRef = databaseRef.child("columns");
 export const tasksRef = databaseRef.child("tasks");
+export const auth = firebase.auth();

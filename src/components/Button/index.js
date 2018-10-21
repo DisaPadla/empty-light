@@ -8,4 +8,9 @@ export const Button = styled.button`
   background: ${props => props.theme.primary};
   border: none;
   outline: none;
+
+  :hover,
+  :focus {
+    opacity: 0.6;
+  }
 `;
