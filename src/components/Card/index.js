@@ -35,7 +35,7 @@ const PendingShortly = styled(PendingLine)`
 
 export const PendingCard = ({ innerRef, children, ...rest }) => {
   return (
-    <Card innerRef={innerRef} {...rest}>
+    <Card ref={innerRef} {...rest}>
       <PendingLine />
       <PendingShortLine />
       <PendingShortly />

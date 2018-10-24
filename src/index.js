@@ -8,7 +8,7 @@ import Board from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import { Container } from "./components/Container";
 import { theme } from "./theme";
-import "./globalStyl";
+import GlobalStyle from "./globalStyl";
 
 class App extends React.Component {
   state = { theme: theme.dark };
@@ -22,14 +22,17 @@ class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={this.state.theme}>
-        <Container>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Board} />
-              <Route path="/auth" component={Auth} />
-            </Switch>
-          </Router>
-        </Container>
+        <React.Fragment>
+          <GlobalStyle />
+          <Container>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Board} />
+                <Route path="/auth" component={Auth} />
+              </Switch>
+            </Router>
+          </Container>
+        </React.Fragment>
       </ThemeProvider>
     );
   }

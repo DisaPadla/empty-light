@@ -34,11 +34,11 @@ export default class Auth extends React.Component {
   render() {
     return (
       <Page>
-        <Input placeholder="Email..." innerRef={node => (this.email = node)} />
+        <Input placeholder="Email..." ref={node => (this.email = node)} />
         <Input
           placeholder="Password..."
           type="password"
-          innerRef={node => (this.password = node)}
+          ref={node => (this.password = node)}
         />
         <Button onClick={this.submit}>Sign In</Button>
         {this.state.error && <ErrorField>{this.state.error}</ErrorField>}

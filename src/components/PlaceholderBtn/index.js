@@ -64,12 +64,12 @@ export class PlaceholderBtn extends React.Component {
 
   render() {
     return (
-      <InputWrap innerRef={node => (this.nodeRef = node)}>
+      <InputWrap ref={node => (this.nodeRef = node)}>
         {!this.state.isPlaceholder ? (
           <Fragment>
             <Input
               placeholder={this.props.placeholder}
-              innerRef={node => (this.inputRef = node)}
+              ref={node => (this.inputRef = node)}
             />
             <Button onClick={this.submit}>Add</Button>
           </Fragment>

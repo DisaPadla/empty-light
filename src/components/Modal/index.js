@@ -51,7 +51,7 @@ export class Modal extends Component {
   render() {
     return ReactDOM.createPortal(
       <Wrapper>
-        <MiddleModal innerRef={node => (this.modalContent = node)}>
+        <MiddleModal ref={node => (this.modalContent = node)}>
           {this.props.children}
         </MiddleModal>
       </Wrapper>,

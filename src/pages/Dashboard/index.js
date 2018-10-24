@@ -103,7 +103,7 @@ export default class Dashboard extends Component {
           {provided => (
             <Grid
               {...provided.droppableProps}
-              innerRef={provided.innerRef}
+              ref={provided.innerRef}
               cols={this.state.columns.length + 1}
             >
               {this.state.columns.map((column, index) => {
