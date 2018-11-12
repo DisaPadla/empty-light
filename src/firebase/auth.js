@@ -9,12 +9,10 @@ const handleCodeErr = err => {
   }
 };
 
-export const createUser = (email, password) => {
-  auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
+export const createUser = (email, password, handleErr) => {
+  return auth.createUserWithEmailAndPassword(email, password).catch(err => {
+    const errMsg = handleCodeErr(err);
+    handleErr(errMsg);
   });
 };
 
@@ -26,12 +24,5 @@ export const signIn = (email, password, handleErr) => {
 };
 
 export const signOut = () => {
-  auth
-    .signOut()
-    .then(function() {
-      // Sign-out successful.
-    })
-    .catch(function(error) {
-      // An error happened.
-    });
+  return auth.signOut();
 };

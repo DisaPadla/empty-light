@@ -1,14 +1,30 @@
 import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Board from "./pages/Dashboard";
 import Auth from "./pages/Auth";
-import { Container } from "./components/Container";
 import { theme } from "./theme";
 import GlobalStyle from "./globalStyl";
+
+import UserProvider from "./UserProvider";
+import { PrivateRoute } from "./PrivateRoute";
+import Header from "./Header";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: ${props => props.theme.item};
+  background: ${props => props.theme.bg};
+`;
+
+const Content = styled.div`
+  flex: 2;
+  padding: ${props => props.theme.padding};
+`;
 
 class App extends React.Component {
   state = { theme: theme.dark };
@@ -19,20 +35,33 @@ class App extends React.Component {
     });
   };
 
+  renderPrivateRoutes() {
+    return (
+      <React.Fragment>
+        <Header />
+        <Content>
+          <PrivateRoute exact path="/dashboard" component={Board} />
+        </Content>
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
       <ThemeProvider theme={this.state.theme}>
-        <React.Fragment>
+        <Container>
           <GlobalStyle />
-          <Container>
-            <Router>
-              <Switch>
-                <Route exact path="/" component={Board} />
-                <Route path="/auth" component={Auth} />
-              </Switch>
-            </Router>
-          </Container>
-        </React.Fragment>
+          <Router>
+            <UserProvider>
+              {() => (
+                <Switch>
+                  <Route exact path="/auth" component={Auth} />
+                  <Route render={this.renderPrivateRoutes} />
+                </Switch>
+              )}
+            </UserProvider>
+          </Router>
+        </Container>
       </ThemeProvider>
     );
   }

@@ -13,6 +13,7 @@ export const theme = {
     bg: "#424250",
     primary: "#25282f",
     secondary: "#33333d",
+    green: "#1eb97f",
     border: "2px solid #1eb97f"
   },
   light: {
