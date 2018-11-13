@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import Board from "./pages/Dashboard";
 import Auth from "./pages/Auth";
@@ -39,7 +39,7 @@ export default class App extends React.Component {
       <React.Fragment>
         <Header />
         <Content>
-          <PrivateRoute exact path="/dashboard" component={Board} />
+          <Route exact path="/dashboard" component={Board} />
         </Content>
       </React.Fragment>
     );

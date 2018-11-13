@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "pack": "webpack --config webpack/webpack.config.js",
+    "pack": "webpack --config webpack/webpack.config.dev.js",
+    "pack:prod": "webpack --config webpack/webpack.config.prod.js",
     "babel": "babel src -d views",
     "build": "npm run pack && npm run babel",
+    "build:prod": "NODE_ENV=production npm run pack:prod && npm run babel",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
     "limit": "npm run build && size-limit --why"
   },

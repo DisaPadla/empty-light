@@ -29,7 +29,7 @@ class UserProvider extends React.Component {
       };
       this.updateUserData(user);
     } else {
-      this.setState({ user: {} }, () => this.props.history.push("/auth"));
+      // this.setState({ user: {} }, () => this.props.history.push("/auth"));
     }
 
     if (this.state.isFirstLoading) {
@@ -38,10 +38,6 @@ class UserProvider extends React.Component {
   };
 
   render() {
-    if (this.state.loading) {
-      return null;
-    }
-
     return (
       <UserContext.Provider
         value={{ user: this.state.user, updateUserData: this.updateUserData }}
