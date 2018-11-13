@@ -1,16 +1,19 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: ["webpack-hot-middleware/client", "./src/client.js"],
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "../assets"),
+    filename: "[name].js",
+    publicPath: "/"
   },
 
+  mode: "development",
   devtool: "inline-source-map",
 
   module: {
@@ -28,19 +31,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CleanWebpackPlugin(["dist"]),
-    new HtmlWebpackPlugin({
-      title: "Development",
-      template: "src/index.html"
-    })
-    // new BundleAnalyzerPlugin(),
-  ],
 
-  devServer: {
-    contentBase: path.join(__dirname, "dist"),
-    compress: true,
-    port: 7000,
-    historyApiFallback: true
-  }
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 };

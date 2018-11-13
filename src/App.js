@@ -1,6 +1,5 @@
 import "@babel/polyfill";
 import React from "react";
-import ReactDOM from "react-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -26,7 +25,7 @@ const Content = styled.div`
   padding: ${props => props.theme.padding};
 `;
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = { theme: theme.dark };
 
   onChangeTheme = () => {
@@ -51,20 +50,16 @@ class App extends React.Component {
       <ThemeProvider theme={this.state.theme}>
         <Container>
           <GlobalStyle />
-          <Router>
-            <UserProvider>
-              {() => (
-                <Switch>
-                  <Route exact path="/auth" component={Auth} />
-                  <Route render={this.renderPrivateRoutes} />
-                </Switch>
-              )}
-            </UserProvider>
-          </Router>
+          <UserProvider>
+            {() => (
+              <Switch>
+                <Route exact path="/auth" component={Auth} />
+                <Route render={this.renderPrivateRoutes} />
+              </Switch>
+            )}
+          </UserProvider>
         </Container>
       </ThemeProvider>
     );
   }
 }
-
-ReactDOM.render(<App />, document.getElementById("container"));

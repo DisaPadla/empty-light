@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import Column from "./Column";
-import { Grid, PlaceholderBtn, Modal } from "../../components";
+import { Grid, PlaceholderBtn } from "../../components";
 import { Card } from "./Card";
 
 import {
