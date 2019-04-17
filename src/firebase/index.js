@@ -1,13 +1,13 @@
-import firebase from "firebase/app";
-import "firebase/database";
-import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
-import { FirebaseConfig } from "./keys";
+import { FirebaseConfig } from './keys';
 
 firebase.initializeApp(FirebaseConfig);
 
 const databaseRef = firebase.database().ref();
 
-export const columnsRef = databaseRef.child("columns");
-export const tasksRef = databaseRef.child("tasks");
+export const columnsRef = databaseRef.child('columns');
+export const tasksRef = databaseRef.child('tasks');
 export const auth = firebase.auth();

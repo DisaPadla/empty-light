@@ -3,8 +3,8 @@ import {
   updateColumn,
   addColumn,
   unwatchColumns
-} from "./columns";
-import { watchTasks, updateTask, addTask, unwatchTasks } from "./tasks";
+} from './columns';
+import { watchTasks, updateTask, addTask, unwatchTasks } from './tasks';
 
 export {
   watchColumns,

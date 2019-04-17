@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 
-const modalRoot = document.getElementById("modal-root");
+const modalRoot = document.getElementById('modal-root');
 
 const Wrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
@@ -29,16 +29,16 @@ const MiddleModal = styled.div`
 export class Modal extends Component {
   constructor(props) {
     super(props);
-    this.el = document.createElement("div");
+    this.el = document.createElement('div');
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.onHandleModal);
+    document.addEventListener('mousedown', this.onHandleModal);
     modalRoot.appendChild(this.el);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.onHandleModal);
+    document.removeEventListener('mousedown', this.onHandleModal);
     modalRoot.removeChild(this.el);
   }
 

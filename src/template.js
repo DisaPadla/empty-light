@@ -1,5 +1,5 @@
-function template(content = "", styleTags) {
-  let scripts = "";
+function template(content = '', styleTags) {
+  let scripts = '';
   if (content) {
     scripts = `<script src="assets/main.js"></script>`;
   } else {

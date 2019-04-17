@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
-import { Input, Button as ButtonBase } from "../";
+import { Input, Button as ButtonBase } from '../';
 
 const Placeholder = styled.div`
   height: 28px;
@@ -32,7 +32,7 @@ export class PlaceholderBtn extends React.Component {
   };
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.hideForm, false);
+    document.addEventListener('mousedown', this.hideForm, false);
   }
 
   componentDidUpdate() {
@@ -42,7 +42,7 @@ export class PlaceholderBtn extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.hideForm, false);
+    document.removeEventListener('mousedown', this.hideForm, false);
   }
 
   onToggle = () => {

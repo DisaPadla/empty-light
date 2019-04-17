@@ -1,23 +1,12 @@
-import React from "react";
-import { hydrate } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import React from 'react';
+import { render } from 'react-dom';
+import App from './App';
 
-hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("container")
-);
+render(<App />, document.getElementById('container'));
 
 if (module.hot) {
-  module.hot.accept("./App", () => {
-    const NewApp = require("./App").default;
-    hydrate(
-      <BrowserRouter>
-        <NewApp />
-      </BrowserRouter>,
-      document.getElementById("container")
-    );
+  module.hot.accept('./App', () => {
+    const NewApp = require('./App').default;
+    hydrate(<NewApp />, document.getElementById('container'));
   });
 }

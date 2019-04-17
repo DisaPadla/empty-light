@@ -1,16 +1,10 @@
-import "@babel/polyfill";
-import React from "react";
-import styled, { ThemeProvider } from "styled-components";
-import { Route, Switch } from "react-router-dom";
+// import "@babel/polyfill";
+import React from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 
-import Board from "./pages/Dashboard";
-import Auth from "./pages/Auth";
-import { theme } from "./theme";
-import GlobalStyle from "./globalStyl";
-
-import UserProvider from "./UserProvider";
-import { PrivateRoute } from "./PrivateRoute";
-import Header from "./Header";
+import Board from './pages/Dashboard/Dashboard';
+import { theme } from './theme';
+import GlobalStyle from './globalStyl';
 
 const Container = styled.div`
   display: flex;
@@ -18,11 +12,6 @@ const Container = styled.div`
   height: 100%;
   color: ${props => props.theme.item};
   background: ${props => props.theme.bg};
-`;
-
-const Content = styled.div`
-  flex: 2;
-  padding: ${props => props.theme.padding};
 `;
 
 export default class App extends React.Component {
@@ -34,30 +23,12 @@ export default class App extends React.Component {
     });
   };
 
-  renderPrivateRoutes() {
-    return (
-      <React.Fragment>
-        <Header />
-        <Content>
-          <Route exact path="/dashboard" component={Board} />
-        </Content>
-      </React.Fragment>
-    );
-  }
-
   render() {
     return (
       <ThemeProvider theme={this.state.theme}>
         <Container>
           <GlobalStyle />
-          <UserProvider>
-            {() => (
-              <Switch>
-                <Route exact path="/auth" component={Auth} />
-                <Route render={this.renderPrivateRoutes} />
-              </Switch>
-            )}
-          </UserProvider>
+          <Board />
         </Container>
       </ThemeProvider>
     );

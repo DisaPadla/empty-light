@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Button } from "./components";
-import { signOut } from "./firebase/auth";
+import { Button } from './components';
+import { signOut } from './firebase/auth';
 
 const Container = styled.div`
   display: flex;

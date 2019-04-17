@@ -1,9 +1,9 @@
-import { auth } from ".";
+import { auth } from '.';
 
 const handleCodeErr = err => {
   switch (err.code) {
-    case "auth/user-not-found":
-      return "User not found";
+    case 'auth/user-not-found':
+      return 'User not found';
     default:
       return null;
   }

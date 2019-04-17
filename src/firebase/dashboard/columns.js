@@ -1,14 +1,12 @@
-import { columnsRef } from "../";
+import { columnsRef } from '../';
 
 export const watchColumns = cb => {
-  return columnsRef.orderByChild("order").on("value", snapshot => {
+  return columnsRef.orderByChild('order').on('value', snapshot => {
     const data = [];
     snapshot.forEach(item => {
       data.push({ ...item.val(), id: item.key });
     });
-    cb({
-      columns: data
-    });
+    cb(data);
   });
 };
 

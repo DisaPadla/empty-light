@@ -1,14 +1,12 @@
-import { tasksRef } from "../";
+import { tasksRef } from '../';
 
 export const watchTasks = cb => {
-  return tasksRef.orderByChild("order").on("value", snapshot => {
+  return tasksRef.orderByChild('order').on('value', snapshot => {
     const data = [];
     snapshot.forEach(item => {
       data.push({ ...item.val(), id: item.key });
     });
-    cb({
-      tasks: data
-    });
+    cb(data);
   });
 };
 
