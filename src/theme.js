@@ -19,7 +19,10 @@ export const theme = {
   light: {
     ...common,
     color: '#1d1f27',
-    bg: '#fafafa',
-    secondary: '#e2e4e6'
+    bg: '#B3D8D1',
+    primary: '#0B2B28',
+    secondary: '#FFEEE0',
+    green: '#6BA0A6',
+    border: '2px solid #6BA0A6'
   }
 };

@@ -11,6 +11,7 @@
     "babel": "babel src -d views",
     "build": "npm run pack && npm run babel",
     "build:prod": "NODE_ENV=production npm run pack:prod && npm run babel",
+    "prettier": "prettier --write './src/**/*.js'",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
     "limit": "npm run build && size-limit --why"
   },
@@ -40,6 +41,7 @@
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "react-transition-group": "^4.0.0",
     "styled-components": "^4.2.0"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-// import "@babel/polyfill";
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -12,6 +11,7 @@ const Container = styled.div`
   height: 100%;
   color: ${props => props.theme.item};
   background: ${props => props.theme.bg};
+  overflow: auto;
 `;
 
 export default class App extends React.Component {

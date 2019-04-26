@@ -1,5 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fade = keyframes`
+from {
+  transform: scale(0.0);
+  opacity: 0;
+}
+
+to {
+  transform: scale(1.0);
+  opacity: 1;
+}
+`;
 
 export const Card = styled.div`
   margin: ${props => props.theme.margin};
@@ -15,6 +27,11 @@ export const Card = styled.div`
   white-space: normal;
   cursor: pointer;
   color: white;
+
+  &:hover {
+    box-shadow: 0 0.875rem 1.75rem rgba(0, 0, 0, 0.25),
+      0 0.625rem 0.625rem rgba(0, 0, 0, 0.22);
+  }
 `;
 
 const PendingLine = styled.div`

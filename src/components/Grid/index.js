@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  grid-gap: 1em;
+  grid-auto-columns: 16rem;
+  grid-auto-flow: column;
+  grid-column-gap: 1rem;
+  padding: ${props => props.theme.padding};
 `;

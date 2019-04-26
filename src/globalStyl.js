@@ -32,6 +32,7 @@ export default createGlobalStyle`
   }
 
   body, html, #container {
+    min-height: 100vh;
     height: 100%;
   }
 
